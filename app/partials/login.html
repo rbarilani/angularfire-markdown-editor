@@ -1,0 +1,59 @@
+
+<div class="page-header">
+  <h1>Login</h1>
+</div>
+
+<div class="jumbotron">
+
+  <form class="row" ng-submit="return;" role="form">
+
+    <div class="col-md-4 col-centered">
+
+      <div class="alert alert-danger" ng-show="err">
+        <strong>Oh Snap!</strong> {{err}}
+      </div>
+
+
+
+      <div class="form-group">
+        <label>
+          <span>email</span>
+        </label>
+        <input type="email" class="form-control" ng-model="email" required/>
+      </div>
+      <div class="form-group">
+        <label>
+          <span>password</span>
+        </label>
+        <input type="password" class="form-control" ng-model="pass" required/>
+      </div>
+
+      <div class="form-group" ng-show="createMode">
+        <label ng-cloak><span>confirm pass</span></label>
+        <input type="password" class="form-control" ng-model="confirm" />
+      </div>
+
+      <div class="form-group" ng-show="createMode">
+        <label>
+          <span>username</span>
+        </label>
+        <input type="text" class="form-control" ng-model="username" ng-required="createMode"/>
+      </div>
+
+      <div class="form-group" ng-show="createMode != true">
+        <button type="button" class="btn btn-primary" ng-click="login()">Log In</button>
+        <button type="button" class="btn btn-info" ng-click="createMode = true">Register</button>
+      </div>
+
+      <div class="form-group" ng-show="createMode">
+        <button type="button" class="btn btn-success" ng-click="createAccount()" ng-cloak>Create Account</button>
+        <button type="button"  class="btn btn-warning" ng-cloak  ng-click="createMode = false">Cancel</button>
+      </div>
+
+    </div>
+
+  </form>
+
+</div>
+
+

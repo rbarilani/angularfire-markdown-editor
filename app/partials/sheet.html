@@ -1,0 +1,15 @@
+<div class="alert alert-warning" ng-if="!sheet"><strong>NOT FOUND!</strong></div>
+
+<div page-header ng-if="sheet">
+
+  <span ng-cloak>{{ sheet.title }}</span>
+
+  <p>
+    <small><strong>author: </strong> <i>{{ sheet.author || 'Unknown' }}</i></small>
+  </p>
+
+</div>
+
+<div class="row" ng-if="sheet">
+  <div class="col-xs-12" btf-markdown="sheet.body"></div>
+</div>

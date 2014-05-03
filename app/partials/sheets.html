@@ -1,0 +1,53 @@
+<div page-header>
+  <span class="glyphicon glyphicon-list"></span> Sheets
+</div>
+
+<div class="row">
+  <div class="col-xs-12" style="padding-top:24px; padding-bottom: 24px;">
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="text" ng-model="searchSheet" class="form-control" placeholder="Search a sheet...">
+      </div>
+
+      <div class="form-group">
+        <label>Order by</label>
+        <select ng-model="criteria.orderBy" class="form-control"
+                ng-options="value for value in ['title','author','created','$id']"></select>
+      </div>
+
+      <div class="form-group">
+        <select ng-model="criteria.orderByReverse" class="form-control"
+                ng-options="value.value as value.label for value in [{ label :'desc', value : false } , {label : 'asc', value : true}]"></select>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+
+<div ng-hide="bug">
+  <div class="list-group" ng-if="!(sheets | orderByPriority | untitledSheets:false | filter:searchSheet).length">
+    <div class="list-group-item"><small>No sheets.</small></div>
+  </div>
+
+  <div class="list-group" ng-if="(sheets | orderByPriority | untitledSheets:false | filter:searchSheet).length">
+    <div class="list-group-item" ng-repeat="sheet in sheets | orderByPriority | untitledSheets:false | filter:searchSheet | orderBy:criteria.orderBy:criteria.orderByReverse">
+      <div sheet-row></div>
+    </div>
+  </div>
+</div>
+
+
+<div style="margin-top:64px" ng-hide="bug">
+  <h4>Drafts</h4>
+
+  <div class="list-group" ng-if="(sheets | orderByPriority | untitledSheets | filter:searchSheet).length === 0">
+    <div class="list-group-item"><small>No drafts.</small></div>
+  </div>
+
+  <div class="list-group" ng-if="(sheets | orderByPriority | untitledSheets | filter:searchSheet).length">
+    <div class="list-group-item" ng-repeat="sheet in sheets | orderByPriority | untitledSheets | filter:searchSheet | orderBy:orderBySheetProperty">
+      <div sheet-row></div>
+    </div>
+  </div>
+</div>

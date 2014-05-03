@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>My AngularJS App</title>
+
+
+  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+  <link rel="stylesheet" href="css/app.css"/>
+</head>
+<body ng-cloak-auth class="hide">
+
+  <div ng-include="'partials/nav.html'"></div>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <div ng-class="{'col-xs-12' : $route.current.$$route.authRequired != true , 'col-md-9' : $route.current.$$route.authRequired } "ng-view id="top-ng-view"></div>
+
+      <div class="col-md-3" ng-if="$route.current.$$route.authRequired" class="connected-users-col" ng-controller="UsersCtrl" ng-show-auth="login">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="badge">{{ (users | orderByPriority | connectedUsers ).length }}</span>
+            <strong> USERS ONLINE :  </strong>
+          </li>
+          <li class="list-group-item"
+
+              ng-class="{'list-group-item-success' : $location.url() == thisUser.url}"
+              ng-repeat="thisUser in users | orderByPriority | connectedUsers">
+            <div gravatar="thisUser.email" class="gravatar-small gravatar-small-left"></div>
+            <strong>{{ thisUser.email == auth.user.email ? 'You ❤' : thisUser.username }}</strong><small style="font-size: 75%; color: #919191;"> {{ thisUser.email }} </small> <br>
+            <small style="font-size: 75%;"> @  <a href="#{{thisUser.url}}">{{ thisUser.url }}</a> </small>
+          </li>
+        </ul>
+      </div>
+
+
+
+    </div>
+  </div>
+  <!--<div ng-view class="container"></div>-->
+
+
+  <!--<div class="container">AngularFire-seed v<span app-version></span></div>-->
+
+  <!-- Jquery -->
+  <script src="components/jquery/dist/jquery.min.js"></script>
+
+  <!-- Bootstrap -->
+  <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  <!-- Showdown -->
+  <script src="components/showdown/compressed/showdown.js"></script>
+  <script src="components/showdown/compressed/extensions/github.js"></script>
+
+  <!-- Lodash -->
+  <script src="components/lodash/dist/lodash.min.js"></script>
+
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+
+  <!-- Angular -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+  <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.js"></script>
+  <script src="components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="components/angular-markdown-directive/markdown.js"></script>
+  <script src="components/angular-md5/angular-md5.min.js"></script>
+  <!-- SRC -->
+  <script src="js/app.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/directives.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/routes.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/service.login.js"></script>
+  <script src="js/service.firebase.js"></script>
+  <script src="js/module.waitForAuth.js"></script>
+  <script src="js/module.routeSecurity.js"></script>
+</body>
+</html>

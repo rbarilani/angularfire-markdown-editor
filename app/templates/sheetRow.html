@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-xs-9">
+    <a style="line-height: 34px" href="#/editor/{{sheet.$id}}">{{ sheet.title }}</a>
+    <br>
+    <small> <strong>created by : {{ sheet.author }}</strong></small>
+    <small> - {{ sheet.created | date:'EEEE dd MMMM yyyy, HH:mm:ss' }}</small>
+  </div>
+  <div class="col-xs-3">
+    <div class="btn-group pull-right">
+      <a href="#/editor/{{sheet.$id}}" role="button" class="btn btn-default">edit</a>
+      <a href="#/sheet/{{sheet.$id}}" role="button" class="btn btn-default">view</a>
+      <button type="button" class="btn  btn-danger " ng-click="removeSheet(sheet.$id)">delete</button>
+    </div>
+  </div>
+</div>

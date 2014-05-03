@@ -1,0 +1,56 @@
+<div page-header>Account</div>
+
+<form class="row">
+    <fieldset class="col-md-6">
+        <legend>Profile</legend>
+
+        <div class="form-group">
+          <label>
+            <span>Username:</span> </label>
+            <input type="text" name="name" ng-model="user.username" class="form-control"/>
+
+        </div>
+
+      <div class="form-group">
+        <label>
+            <span>Email:</span></label>
+            <input type="text" name="name" ng-model="user.email" class="form-control" ng-disabled="true"/>
+
+      </div>
+
+    </fieldset>
+
+    <fieldset class="col-md-6">
+      <legend>Change Password</legend>
+
+      <div class="alert alert-danger" ng-show="err">{{err.code || err}}</div>
+      <div class="alert alert-success" ng-show="msg">{{msg}}</div>
+
+      <div class="form-group">
+        <label>
+            <span>Old Password:</span> </label>
+            <input type="password" ng-keypress="reset()" ng-model="oldpass" class="form-control"/>
+
+      </div>
+
+      <div class="form-group">
+        <label>
+            <span>New Password:</span></label>
+            <input type="password" ng-keypress="reset()" ng-model="newpass" class="form-control"/>
+
+      </div>
+
+      <div class="form-group">
+        <label>
+            <span>Confirm Password:</span></label>
+            <input type="password" ng-keypress="reset()" ng-model="confirm" class="form-control"/>
+
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary" ng-click="updatePassword()">update password</button>
+      </div>
+    </fieldset>
+</form>
+
+<!--<button ng-click="logout()">Log Out</button>-->

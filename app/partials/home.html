@@ -1,0 +1,19 @@
+<div class="page-header">
+  <h1><span class="glyphicon glyphicon-home"></span> Home</h1>
+</div>
+
+<div class="jumbotron">
+  <div>
+      <h3>True MARKDOWN Editor with FIREBASE</h3>
+      <p class="status good" ng-show-auth="login">Hello! You are logged in.</p>
+      <p class="status" ng-show-auth="logout">Not logged in</p>
+      <p class="status error" ng-show-auth="error">{{auth.error}}</p>
+
+      <hr />
+      <p><a href="#/login" class="btn btn-primary btn-lg" role="button" ng-show-auth="logout">Login</a></p>
+
+  </div>
+
+</div>
+
+

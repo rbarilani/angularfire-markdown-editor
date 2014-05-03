@@ -1,0 +1,67 @@
+/* app css stylesheet */
+.hide {
+   display: none;
+}
+p.status {
+   color: red;
+}
+p.status.good, p.good {
+   color: green;
+}
+
+/** common bootstrap based **/
+.col-centered{
+  float: none;
+  margin: 0 auto;
+}
+
+.h1-form-control {
+  font-size: 36px;
+  height: auto;
+}
+
+.h1-input-group-btn .btn {
+  font-size:36px;
+}
+
+.pointer , .pointer:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/**
+ * DOMAIN
+ */
+
+/** layout **/
+#top-ng-view .page-header {
+  margin-top:0;
+}
+
+/** mardown editor **/
+textarea.form-control.markdown-editor-textarea {
+  height: 300px;
+  margin-bottom:24px;
+}
+
+.markdown-editor-preview {
+  min-height:144px;
+}
+
+/** gravatar **/
+.gravatar-small-group-inline {
+  line-height: 20px;
+}
+
+.gravatar-small {
+  width:20px;  margin-bottom:0px; padding:0; border-radius:0;
+}
+
+.gravatar-small-left {
+  float:left; margin-right:6px;
+}
+
+
+
+
+
