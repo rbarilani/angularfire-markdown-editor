@@ -1,13 +1,15 @@
 <div page-header>
 
-  <a class="pointer" ng-show="editSheetTitle != true"  ng-click="editSheetTitle = true" ng-cloak>
-    <span class="glyphicon glyphicon-pencil pull-right"></span> {{ sheet.title }}
+  <a class="pointer" ng-show="editSheetTitle != true"  ng-click="editSheetTitle = sheet.lock != true ? true : false" ng-cloak>
+    <span ng-if="sheet.lock != true" class="glyphicon glyphicon-pencil pull-right"></span>
+    <span ng-if="sheet.lock === true" class="glyphicon glyphicon-lock pull-right"></span>
+    {{ sheet.title }}
   </a>
 
   <form ng-submit="editSheetTitle = false" ng-show="editSheetTitle === true" novalidate>
     <div class="input-group" ng-show="editSheetTitle === true" ng-cloak>
 
-        <input type="text" class="form-control h1-form-control" ng-model="sheet.title">
+        <input type="text" class="form-control h1-form-control" ng-model="sheet.title" ng-disabled="sheet.lock === true">
         <span class="input-group-btn h1-input-group-btn">
          <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span></button>
         </span>
@@ -16,7 +18,7 @@
   </form>
 
   <p>
-    <small><strong>author: </strong> <i>{{ sheet.author || 'Unknown' }}</i></small>
+    <small><strong>author: </strong> <i you-email="sheet.author"></i></small>
   </p>
 
 </div>
@@ -25,36 +27,83 @@
 
   <div ng-class="{'col-xs-12': editor.mode === 'preview' , 'col-md-6 col-xs-12' : editor.mode === 'live' }">
 
-    <div class="markdown-editor">
+    <div class="markdown-editor" ng-model="sheet.body"  insert-at-cursor>
 
-      <nav class="navbar navbar-default markdown-editor-navbar" role="navigation">
-        <div class="container-fluid">
-          <form class="navbar-form navbar-right" role="search">
+      <div class="container-full" style="padding-bottom: 8px ">
+        <div class="row">
+          <div class="col-xs-12">
 
-            <!-- Live or Preview -->
-            <button type="submit" ng-show="editor.mode === 'preview'"
-                    class="btn btn-default" ng-cloak ng-click="editor.mode = 'live'">Live</button>
+            <div class="btn-group pull-left" ng-if="$saveSheet && sheet.lock != true" ng-cloak>
+              <button type="button" ng-if="$saveSheet" class="btn btn-success" ng-click="$saveSheet(sheet)" ng-disabled="sheet.lock === true">
+                <span class="glyphicon glyphicon-ok-circle"></span> Save
+              </button>
+              <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" ng-disabled="sheet.lock === true">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <ul class="dropdown-menu" role="menu">
+                <li><a class="pointer" ng-if="$saveSheetLikeDraft" ng-click="$saveSheetLikeDraft(sheet)">
+                  ... like <strong>draft</strong></trong></a>
+                </li>
+              </ul>
+            </div>
 
-            <button type="submit" ng-show="editor.mode === 'live'"
-                    class="btn btn-default" ng-cloak ng-click="editor.mode = 'preview'">Classic</button>
-            <!-- -->
+            <div class="btn-group pull-right markdown-editor-toolbar">
+              <!-- Live or Preview -->
+              <!--<button type="submit" ng-if="editor.mode === 'preview'"
+                      class="btn btn-default" ng-cloak ng-click="editor.mode = 'live'">Live</button>-->
 
-            <!-- Preview Mode -->
-            <!-- Preview Or Edit Mode -->
-            <button type="submit" ng-show="editor.phase.preview != true && editor.mode === 'preview'"
-                    class="btn btn-default" ng-cloak ng-click="editor.phase.preview = true">Preview</button>
+              <!--<button type="submit" ng-if="editor.mode === 'live'"
+                      class="btn btn-default" ng-cloak ng-click="editor.mode = 'preview'">Classic</button>-->
+              <!-- -->
 
-            <button type="submit" ng-show="editor.phase.preview == true && editor.mode === 'preview'"
-                    class="btn btn-default" ng-cloak ng-click="editor.phase.preview = false">Edit</button>
-            <!-- -->
-          </form>
+              <!-- Preview Mode -->
+              <!-- Preview Or Edit Mode -->
+              <button ng-if="editor.phase.preview != true && sheet.lock != true" class="btn btn-default"
+                      ng-click="sheet.body = $insertAtCursor('textarea#markdown-editor','***your strong text***')">
+                <strong>B</strong>
+              </button>
+              <button ng-if="editor.phase.preview != true && sheet.lock != true" class="btn btn-default"
+                      ng-click="sheet.body = $insertAtCursor('textarea#markdown-editor','_your italic text_')">
+                <i>I</i>
+              </button>
+              <button ng-if="editor.phase.preview != true && sheet.lock != true" class="btn btn-default"
+                      ng-click="sheet.body = $insertAtCursor('textarea#markdown-editor','\n```\n your code\n```')">
+                <i>&gt;</i>
+              </button>
+              <button ng-if="editor.phase.preview != true && sheet.lock != true" class="btn btn-default"
+                      ng-click="sheet.body = $insertAtCursor('textarea#markdown-editor','\n![alt](http://jorshasaur.us/content/images/2014/Feb/nodejs_1280x1024.png)')">
+                <span class="glyphicon glyphicon-picture"></span>
+              </button>
+              <button ng-if="editor.phase.preview != true && sheet.lock != true" class="btn btn-default"
+                      ng-click="sheet.body = $insertAtCursor('textarea#markdown-editor','\n[your link text](https://angularjs.org)')">
+                <span>a</span>
+              </button>
 
+
+
+
+              <button type="submit" ng-if="editor.phase.preview != true && editor.mode === 'preview'"
+                      class="btn btn-default" ng-cloak ng-click="editor.phase.preview = true">
+                <span class="glyphicon glyphicon-eye-open"></span></button>
+
+              <button type="submit" ng-if="editor.phase.preview == true && editor.mode === 'preview'"
+                      class="btn btn-default" ng-cloak ng-click="editor.phase.preview = false">
+                <span class="glyphicon glyphicon-pencil"></span></button>
+              <!-- -->
+            </div>
+
+          </div>
         </div>
-      </nav>
+      </div>
 
-      <textarea ng-show="editor.phase.preview != true || editor.mode === 'live'"
-                class="col-xs-12 form-control markdown-editor-textarea"
-                ng-model="sheet.body"></textarea>
+      <div>
+        <textarea id="markdown-editor"
+                  ng-show="editor.phase.preview != true || editor.mode === 'live'"
+                  class="col-xs-12 form-control markdown-editor-textarea"
+                  ng-model="sheet.body"
+                  ng-disabled="sheet.lock === true"></textarea>
+      </div>
 
     </div>
 

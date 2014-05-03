@@ -20,7 +20,7 @@
 
     </fieldset>
 
-    <fieldset class="col-md-6">
+    <fieldset class="col-md-6" ng-if="!auth.user.thirdPartyUserData">
       <legend>Change Password</legend>
 
       <div class="alert alert-danger" ng-show="err">{{err.code || err}}</div>

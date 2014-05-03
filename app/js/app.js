@@ -16,6 +16,24 @@ angular.module('myApp', [
       'btford.markdown'
    ])
 
+   .config(function (markdownConverterProvider) {
+      var hr = function () {
+        return [
+          {
+            type    : 'lang',
+            regex   : '([-]{4,})',
+            replace : function() {
+              return '<hr>';
+            }
+          }
+        ];
+      };
+
+      markdownConverterProvider.config({
+        extensions: [hr]
+      });
+    })
+
    .run(['loginService', '$rootScope', 'FBURL', '$location','syncData', '$route', 'sheetsService',
       function(loginService, $rootScope, FBURL, $location, syncData, $route, sheetsService) {
       if( FBURL === 'https://INSTANCE.firebaseio.com' ) {

@@ -1,5 +1,5 @@
 {
-  "name": "angular-markdown-editor",
+  "name": "angularfire-markdown-editor",
   "version": "0.0.0",
   "license": "MIT",
   "private": true,
@@ -11,18 +11,15 @@
     "test",
     "tests"
   ],
-  "devDependencies": {
-    "firebase": "~1.0.12"
-  },
+  "devDependencies": {},
   "dependencies": {
-    "angular-firebase": "~0.0.2",
+    "bootstrap": "~3.1.1",
+    "lodash": "~2.4.1",
     "firebase": "~1.0.12",
     "angular": "~1.2.16",
     "angular-route": "~1.2.16",
-    "bootstrap": "~3.1.1",
     "angular-markdown-directive": "~0.3.0",
-    "lodash": "~2.4.1",
     "angular-md5": "~0.1.7",
-    "angular-ui-router": "~0.2.10"
+    "angularfire": "~0.7.1"
   }
 }

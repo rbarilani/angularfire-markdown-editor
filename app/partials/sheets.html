@@ -26,12 +26,12 @@
 
 
 <div ng-hide="bug">
-  <div class="list-group" ng-if="!(sheets | orderByPriority | untitledSheets:false | filter:searchSheet).length">
+  <div class="list-group" ng-if="!(sheets | orderByPriority | draftSheets:false | filter:searchSheet).length">
     <div class="list-group-item"><small>No sheets.</small></div>
   </div>
 
-  <div class="list-group" ng-if="(sheets | orderByPriority | untitledSheets:false | filter:searchSheet).length">
-    <div class="list-group-item" ng-repeat="sheet in sheets | orderByPriority | untitledSheets:false | filter:searchSheet | orderBy:criteria.orderBy:criteria.orderByReverse">
+  <div class="list-group" ng-if="(sheets | orderByPriority | draftSheets:false | filter:searchSheet).length">
+    <div class="list-group-item" ng-repeat="sheet in sheets | orderByPriority | draftSheets:false | filter:searchSheet | orderBy:criteria.orderBy:criteria.orderByReverse">
       <div sheet-row></div>
     </div>
   </div>
@@ -41,12 +41,12 @@
 <div style="margin-top:64px" ng-hide="bug">
   <h4>Drafts</h4>
 
-  <div class="list-group" ng-if="(sheets | orderByPriority | untitledSheets | filter:searchSheet).length === 0">
+  <div class="list-group" ng-if="(sheets | orderByPriority | draftSheets | filter:searchSheet).length === 0">
     <div class="list-group-item"><small>No drafts.</small></div>
   </div>
 
-  <div class="list-group" ng-if="(sheets | orderByPriority | untitledSheets | filter:searchSheet).length">
-    <div class="list-group-item" ng-repeat="sheet in sheets | orderByPriority | untitledSheets | filter:searchSheet | orderBy:orderBySheetProperty">
+  <div class="list-group" ng-if="(sheets | orderByPriority | draftSheets | filter:searchSheet).length">
+    <div class="list-group-item" ng-repeat="sheet in sheets | orderByPriority | draftSheets | filter:searchSheet | orderBy:orderBySheetProperty">
       <div sheet-row></div>
     </div>
   </div>

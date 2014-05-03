@@ -1,4 +1,11 @@
+# angular-markdown-editor
 
+Firebase collaboration markdown editor.
+
+[DEMO](http://hal9087.github.io/angularfire-markdown-editor/)
+
+
+## OLD README.md
 # angular-seed — the seed for AngularFire apps
 
 This project is an application skeleton for a typical [AngularFire](http://angularfire.com/) web app.

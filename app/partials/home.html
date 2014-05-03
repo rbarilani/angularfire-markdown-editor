@@ -1,16 +1,19 @@
-<div class="page-header">
+<div class="page-header col-md-3 col-centered">
   <h1><span class="glyphicon glyphicon-home"></span> Home</h1>
 </div>
 
-<div class="jumbotron">
+<div class="jumbotron col-md-3 col-centered">
   <div>
-      <h3>True MARKDOWN Editor with FIREBASE</h3>
-      <p class="status good" ng-show-auth="login">Hello! You are logged in.</p>
-      <p class="status" ng-show-auth="logout">Not logged in</p>
-      <p class="status error" ng-show-auth="error">{{auth.error}}</p>
+      <h3>AngularFire MARKDOWN Editor</h3>
+      <p class="status good" ng-show-auth="login">Hello! You are signed in.</p>
+      <p class="status" ng-show-auth="logout">Not signed in</p>
+      <p class="status error" ng-show-auth="error">{{auth.error || 'Oh Snap! There was an error, while trying to sign in or register!'}}</p>
 
-      <hr />
-      <p><a href="#/login" class="btn btn-primary btn-lg" role="button" ng-show-auth="logout">Login</a></p>
+
+      <p>
+        <a href="#/signin" class="btn btn-primary btn-lg" role="button" ng-show-auth="logout">Sign In</a>
+        <a href="#/signin" class="btn btn-primary btn-lg" role="button" ng-show-auth="error">Sign In</a>
+      </p>
 
   </div>
 

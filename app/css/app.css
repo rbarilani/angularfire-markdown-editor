@@ -9,6 +9,43 @@ p.status.good, p.good {
    color: green;
 }
 
+/** icomoon **/
+@font-face {
+    font-family: 'icomoon';
+    src:url('../fonts/icomoon.eot?mphxrk');
+    src:url('../fonts/icomoon.eot?#iefixmphxrk') format('embedded-opentype'),
+    url('../fonts/icomoon.woff?mphxrk') format('woff'),
+    url('../fonts/icomoon.ttf?mphxrk') format('truetype'),
+    url('../fonts/icomoon.svg?mphxrk#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-moon-"], [class*=" icon-moon-"] {
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-moon-googleplus:before {
+    content: "\e600";
+}
+
+
+.btn-lg .icon-moon-googleplus {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+}
+
 /** common bootstrap based **/
 .col-centered{
   float: none;
@@ -24,16 +61,31 @@ p.status.good, p.good {
   font-size:36px;
 }
 
+.container-fluid-semi-full, .navbar-form-semifull{
+    padding-right: 4px;
+    padding-left: 4px ;
+}
+
 .pointer , .pointer:hover {
   cursor: pointer;
   text-decoration: none;
 }
+
+.min-jumbotron {
+    padding-bottom:24px;
+    padding-top: 24px;
+}
+
 
 /**
  * DOMAIN
  */
 
 /** layout **/
+body {
+    padding-bottom:24px;
+}
+
 #top-ng-view .page-header {
   margin-top:0;
 }
@@ -46,6 +98,15 @@ textarea.form-control.markdown-editor-textarea {
 
 .markdown-editor-preview {
   min-height:144px;
+}
+
+.markdown-editor-preview img {
+    display: inline-block;
+    width: 100%;
+}
+
+.markdown-editor-toolbar .btn {
+   min-width: 40px;
 }
 
 /** gravatar **/
@@ -61,6 +122,47 @@ textarea.form-control.markdown-editor-textarea {
   float:left; margin-right:6px;
 }
 
+/** section title **/
+.section-title{
+    border-top: solid 2px #eaeaea;
+    text-align: center;
+}
+.section-title:before, .section-title:after {
+    display: table;
+    content: "";
+}
+.section-title:after {
+    clear: both;
+}
+
+.section-title h1,
+.section-title h2,
+.section-title h3,
+.section-title h4,
+.section-title h5,
+.section-title h6 {
+    position: relative;
+    display: inline-block;
+    margin:0 ;
+    text-transform: uppercase;
+    background: #fff;
+    font-weight: bold;
+}
+
+.section-title h3 {
+    line-height: 16px;
+    top: -11px;
+    padding: 0 10px;
+    font-size: 11px;
+}
+.jumbotron .section-title {
+    border-color: #b5b5b5;
+
+}
+.jumbotron .section-title h3 {
+    background: #eee;
+    color: #777;
+}
 
 
 

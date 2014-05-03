@@ -28,15 +28,64 @@
       .module('myApp.controllers.sheets', []);
 
   controllers
-    .controller('BaseSheetCtrl', function ($scope, $routeParams, sheetsService, orderByPriorityFilter ) {
+    .controller('BaseSheetCtrl', function ($scope, $routeParams, sheetsService, orderByPriorityFilter, $location ) {
       var self = this;
+
       self.sheetsService = sheetsService;
-      self.$routeParams = $routeParams;
+      self.$routeParams  = $routeParams;
 
       self.orderByPriority = function (sheets) {
         return orderByPriorityFilter(sheets);
       }
+
+      self.saveSheet = function (sheet, draft) {
+
+        sheet.draft = draft;
+
+        if(!angular.isString(sheet.$id)) {
+
+          self.sheetsService.createSheet(sheet);
+
+        }else{
+
+          var _sheet = self.sheetsService
+              .oneByName(sheet.$id);
+
+          angular.extend(_sheet, sheet);
+
+          _sheet.$save();
+        }
+
+        $location.path('/sheets');
+      };
+
+      $scope.$saveSheet = function (sheet) {
+        self.saveSheet(sheet, false);
+      };
+
+      $scope.$saveSheetLikeDraft = function (sheet) {
+        self.saveSheet(sheet, true);
+      }
     })
+    /**
+     * @ng-doc controller
+     * @name SheetNewCtrl
+     *
+     * @description
+     * New Sheet Controller
+     */
+    .controller('SheetNewSyncCtrl', function ($scope, $controller) {
+      var self = this;
+      angular.extend(self, $controller('BaseSheetCtrl', {$scope: $scope}));
+
+      self.sheetsService
+        .createSheet(self.$routeParams.title)
+        .then(function (o) {
+            console.log(o);
+            o.$bind($scope, 'sheet');
+        });
+    })
+
     /**
      * @ng-doc controller
      * @name SheetNewCtrl
@@ -48,12 +97,10 @@
       var self = this;
       angular.extend(self, $controller('BaseSheetCtrl', {$scope: $scope}));
 
-      self.sheetsService
-        .createSheet(self.$routeParams.title)
-        .then(function (o) {
-          o.$bind($scope, 'sheet');
-        });
+      $scope.sheet = self.sheetsService.emptySheet('New sheet');
+
     })
+
 
     /**
      * @ng-doc controller
@@ -96,11 +143,11 @@
       var self = this;
       angular.extend(self, $controller('BaseSheetCtrl', {$scope: $scope}));
 
-      $scope.sheets = self.sheetsService.sheets;
+      $scope.sheets = self.sheetsService.sheets();
 
       $scope.criteria = {
-        orderBy: 'title',
-        orderByReverse: false
+        orderBy: 'created',
+        orderByReverse: true
       };
 
       // FIXME!
@@ -126,6 +173,15 @@
           .catch(function (response) {
             console.error(response);
           });
+      };
+
+      $scope.lockSheet = function (sheetId, lock) {
+        if (angular.isString(sheetId)) {
+          var sheet = self.sheetsService
+              .oneByName(sheetId);
+          sheet.lock = lock;
+          sheet.$save();
+        }
       };
 
 
@@ -172,13 +228,6 @@
       $scope.confirm = null;
       $scope.createMode = false;
 
-      $scope.submit = function () {
-        if ($scope.createMode === true) {
-          $scope.createAccount();
-        } else {
-          $scope.login();
-        }
-      };
 
       $scope.login = function (cb) {
         $scope.err = null;
@@ -196,6 +245,17 @@
             }
           });
         }
+      };
+
+      $scope.loginWith = function (providerName) {
+        loginService
+            .loginWith(providerName, function (err, user) {
+              if (err) {
+                $scope.err = err ? err + '' : null;
+              }else{
+                loginService.createProfile(user.uid, user.email, user.displayName);
+              }
+            });
       };
 
       $scope.createAccount = function () {

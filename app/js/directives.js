@@ -67,6 +67,77 @@
     }
   });
 
+  directives.directive('youEmail' , function ($rootScope) {
+
+    var YOU = 'You ❤';
+
+    function you(scope) {
+      scope.you = scope.youEmail === $rootScope.auth.user.email ? YOU : scope.youEmail;
+    }
+
+    return {
+      restrict: 'EA',
+      replace : false,
+      scope : {
+        youEmail : '='
+      },
+      link : function (scope) {
+        you(scope);
+
+        scope.$watch('youEmail', function (val, oldVal) {
+          if(angular.isString(val) && val != oldVal) {
+            you(scope);
+          }
+        })
+      },
+      template : '{{ you }}'
+    }
+  });
+
+  directives.directive('insertAtCursor', function ($parse) {
+
+    function insertAtCursor($element, modelValue, value) {
+
+// IE SUCKS!
+//      //IE support
+//      if (document.selection) {
+//        myField.focus();
+//        sel = document.selection.createRange();
+//        sel.text = myValue;
+//      }
+      //MOZILLA and others
+      if ($element.selectionStart || $element.selectionStart == '0') {
+        var startPos = $element.selectionStart;
+        var endPos = $element.selectionEnd;
+        modelValue = modelValue.substring(0, startPos)
+            + value
+            + modelValue.substring(endPos, $element.value.length);
+        $element.selectionStart = startPos + value.length;
+        $element.selectionEnd = startPos + value.length;
+
+      } else {
+        modelValue += value;
+      }
+
+      return modelValue;
+    }
+
+    return {
+      restrict: 'EA',
+      controller : ['$scope','$attrs', function ($scope, $attrs) {
+        $scope.$insertAtCursor = function (selector, value) {
+
+          var modelValue = $parse($attrs.ngModel)($scope),
+              $element = angular.element(selector);
+
+          $element.focus();
+
+          return ( insertAtCursor($element, modelValue, ' ' + value) );
+        }
+      }]
+    };
+  })
+
 })(window.angular);
 
 

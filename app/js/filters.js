@@ -51,14 +51,19 @@ angular
     }
   })
 
-  .filter('untitledSheets', function () {
+  .filter('draftSheets', function () {
     var sheets = [];
 
-    return function (input, untitled) {
+    return function (input, isDraft) {
       // Called really many times
       if (_.isArray(input)) {
         sheets = _.filter(input, function (sheet) {
-          return _.isString(sheet.title) && (untitled === false ? sheet.title.indexOf('Untitled') == -1 : sheet.title.indexOf('Untitled') != -1 );
+
+          if(isDraft === false) {
+            return sheet.draft != true && sheet.title.indexOf('Untitled') == -1
+          }
+
+          return sheet.draft === true || ( _.isString(sheet.title) && (isDraft === false ? sheet.title.indexOf('Untitled') == -1 : sheet.title.indexOf('Untitled') != -1 ) );
         })
       }
 

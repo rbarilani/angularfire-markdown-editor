@@ -2,12 +2,13 @@
 <html lang="en" ng-app="myApp">
 <head>
   <meta charset="utf-8">
-  <title>My AngularJS App</title>
+  <title>Markdown Editor</title>
 
-
+  <!-- Vendors -->
   <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap-theme.min.css">
 
+  <!-- App Styles -->
   <link rel="stylesheet" href="css/app.css"/>
 </head>
 <body ng-cloak-auth class="hide">
@@ -16,17 +17,14 @@
 
   <div class="container-fluid">
     <div class="row">
-
-      <div ng-class="{'col-xs-12' : $route.current.$$route.authRequired != true , 'col-md-9' : $route.current.$$route.authRequired } "ng-view id="top-ng-view"></div>
-
-      <div class="col-md-3" ng-if="$route.current.$$route.authRequired" class="connected-users-col" ng-controller="UsersCtrl" ng-show-auth="login">
+      <div class="col-xs-12" ng-if="$route.current.$$route.authRequired" class="connected-users-col" ng-controller="UsersCtrl" ng-show-auth="login">
         <ul class="list-group">
-          <li class="list-group-item">
+          <li class="list-group-item" ng-click="openUsers = !openUsers">
             <span class="badge">{{ (users | orderByPriority | connectedUsers ).length }}</span>
             <strong> USERS ONLINE :  </strong>
           </li>
           <li class="list-group-item"
-
+              ng-show="openUsers"
               ng-class="{'list-group-item-success' : $location.url() == thisUser.url}"
               ng-repeat="thisUser in users | orderByPriority | connectedUsers">
             <div gravatar="thisUser.email" class="gravatar-small gravatar-small-left"></div>
@@ -36,40 +34,43 @@
         </ul>
       </div>
 
-
+      <div ng-class="{'col-xs-12' : $route.current.$$route.authRequired != true , 'col-xs-12' : $route.current.$$route.authRequired } "ng-view id="top-ng-view"></div>
 
     </div>
   </div>
-  <!--<div ng-view class="container"></div>-->
 
-
-  <!--<div class="container">AngularFire-seed v<span app-version></span></div>-->
-
+  <!-- Vendors -->
+  <!-- build:js js/vendors.min.js -->
   <!-- Jquery -->
   <script src="components/jquery/dist/jquery.min.js"></script>
 
   <!-- Bootstrap -->
-  <script src="components/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="components/bootstrap/dist/js/bootstrap.js"></script>
 
   <!-- Showdown -->
   <script src="components/showdown/compressed/showdown.js"></script>
   <script src="components/showdown/compressed/extensions/github.js"></script>
 
   <!-- Lodash -->
-  <script src="components/lodash/dist/lodash.min.js"></script>
+  <script src="components/lodash/dist/lodash.js"></script>
 
   <!-- Firebase -->
-  <script src="https://cdn.firebase.com/v0/firebase.js"></script>
-  <script src="https://cdn.firebase.com/v0/firebase-simple-login.js"></script>
+  <script src="components/firebase/firebase.js"></script>
+  <script src='components/firebase-simple-login/firebase-simple-login.js'></script>
+  <!-- endbuild -->
 
-  <!-- Angular -->
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
-  <script src="https://cdn.firebase.com/libs/angularfire/0.6.0/angularfire.js"></script>
-  <script src="components/angular-sanitize/angular-sanitize.min.js"></script>
+  <!-- AngularJs vendors -->
+  <!-- build:js(.tmp) js/ng-vendors.min.js -->
+  <script src="components/angular/angular.js"></script>
+  <script src="components/angular-route/angular-route.js"></script>
+  <script src="components/angularfire/angularfire.js"></script>
+  <script src="components/angular-sanitize/angular-sanitize.js"></script>
   <script src="components/angular-markdown-directive/markdown.js"></script>
-  <script src="components/angular-md5/angular-md5.min.js"></script>
-  <!-- SRC -->
+  <script src="components/angular-md5/angular-md5.js"></script>
+  <!-- endbuild -->
+
+  <!-- App Source -->
+  <!-- build:js(.tmp) js/scripts.min.js -->
   <script src="js/app.js"></script>
   <script src="js/config.js"></script>
   <script src="js/controllers.js"></script>
@@ -81,5 +82,7 @@
   <script src="js/service.firebase.js"></script>
   <script src="js/module.waitForAuth.js"></script>
   <script src="js/module.routeSecurity.js"></script>
+  <!-- endbuild -->
+
 </body>
 </html>

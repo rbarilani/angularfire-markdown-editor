@@ -1,15 +1,50 @@
 <div class="row">
-  <div class="col-xs-9">
-    <a style="line-height: 34px" href="#/editor/{{sheet.$id}}">{{ sheet.title }}</a>
-    <br>
-    <small> <strong>created by : {{ sheet.author }}</strong></small>
-    <small> - {{ sheet.created | date:'EEEE dd MMMM yyyy, HH:mm:ss' }}</small>
-  </div>
-  <div class="col-xs-3">
+  <div class="col-xs-12">
+
+    <!-- Split button -->
     <div class="btn-group pull-right">
-      <a href="#/editor/{{sheet.$id}}" role="button" class="btn btn-default">edit</a>
-      <a href="#/sheet/{{sheet.$id}}" role="button" class="btn btn-default">view</a>
-      <button type="button" class="btn  btn-danger " ng-click="removeSheet(sheet.$id)">delete</button>
+      <!--<button type="button" class="btn btn-primary">Actions</button>-->
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+
+      <ul class="dropdown-menu" role="menu">
+        <li>
+          <a href="#/editor/{{sheet.$id}}">
+          <span class="glyphicon glyphicon-pencil"></span> Edit</a>
+        </li>
+        <li><a href="#/sheet/{{sheet.$id}}">
+          <span class="glyphicon glyphicon-eye-open"></span> View</a>
+        </li>
+
+        <li ng-if="sheet.author == auth.user.email" class="divider"></li>
+
+        <li ng-if="sheet.author == auth.user.email">
+          <a ng-click="lockSheet(sheet.$id, false)" ng-if="sheet.lock === true">
+            <span class="glyphicon glyphicon-lock"></span> Unlock</a>
+
+          <a ng-click="lockSheet(sheet.$id, true)" ng-if="sheet.lock != true">
+            <span class="glyphicon glyphicon-lock"></span> Lock</a>
+        </li>
+
+        <li ng-if="sheet.author == auth.user.email && sheet.lock != true">
+          <a ng-click="removeSheet(sheet.$id)">
+            <span class="glyphicon glyphicon-remove-circle text-danger"></span>
+            <span class="text-danger">Delete</span>
+          </a>
+        </li>
+
+      </ul>
     </div>
+
+    <a style="line-height: 34px" href="#/sheet/{{sheet.$id}}">{{ sheet.title }}</a>
+    <strong class="text-info" ng-if="sheet.lock === true"><span class="glyphicon glyphicon-lock"></span></strong>
+    <br>
+    <small> <strong>created by : <span you-email="sheet.author"></span> </strong></small>
+    <small> - {{ sheet.created | date:'EEEE dd MMMM yyyy, HH:mm:ss' }}</small>
+
+
   </div>
+
 </div>

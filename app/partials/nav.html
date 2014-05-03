@@ -11,7 +11,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">MARKDOWN Editor</a>
+      <a class="navbar-brand" href="#">
+        <small>AngularFire</small>
+        MARKDOWN Editor</a>
 
     </div>
 
@@ -19,22 +21,42 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
       <ul class="nav navbar-nav">
-        <li><a href="#/home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+        <li>
+          <a href="#/home">
+            <span class="glyphicon glyphicon-home"></span>
+            Home
+          </a>
+        </li>
 
         <!-- DropDown Example -->
-        <li class="dropdown" ng-show-auth="login">
+        <li class="dropdown" ng-if="auth.user"><!-- ng-show-auth ? -->
           <a class="dropdown-toggle" data-toggle="dropdown"> Sheets <b class="caret"></b></a>
           <ul class="dropdown-menu">
-            <li><a href="#/sheets"><span class="glyphicon glyphicon-list"></span> All</a></li>
+            <li>
+              <a href="#/sheets">
+                <span class="glyphicon glyphicon-list"></span>
+                All
+              </a>
+            </li>
             <li class="divider"></li>
-            <li><a href="#/editor/new/{{ sheetsService.randomTitle() }}"><span class="glyphicon glyphicon-pencil"></span> New</a></li>
-
+            <!--<li>
+              <a href="#/editor/new-sync/{{ sheetsService.randomTitle(false) }}">
+                <span class="glyphicon glyphicon-pencil"></span>
+                New Sync
+              </a>
+            </li>-->
+            <li>
+              <a href="#/editor/new">
+                <span class="glyphicon glyphicon-pencil"></span>
+                New
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-show-auth="logout,error"><a href="#/login">Login</a></li>
+        <li ng-show-auth="logout,error"><a href="#/signin">Sign In</a></li>
 
         <!-- Another DropDown -->
         <li class="dropdown" ng-show-auth="login">
@@ -46,7 +68,7 @@
           <ul class="dropdown-menu">
             <li><a href="#/account">Account</a></li>
             <li class="divider"></li>
-            <li><a ng-click="security.logout()">Logout</a></li>
+            <li><a ng-click="security.logout()">Sign Out</a></li>
           </ul>
         </li>
       </ul>
@@ -61,10 +83,10 @@
       -->
 
 
+    </div>
+    <!-- /.navbar-collapse -->
 
-
-    </div><!-- /.navbar-collapse -->
-
-  </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.container-fluid -->
 
 </nav>

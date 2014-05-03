@@ -17,9 +17,12 @@
 #
 
 # -- Domain -- #
+
 !.gitkeep
 logs/*
-app/components* # Bower
+app/components/*
+dist/*
+dist
 
 
 # -- Npm -- #
