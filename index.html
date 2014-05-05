@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="utf-8">
+  <title>Markdown Editor</title>
+
+  <!-- Vendors -->
+  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap-theme.min.css">
+
+  <!-- App Styles -->
+  <link rel="stylesheet" href="css/1081e1da.app.css"/>
+</head>
+<body ng-cloak-auth class="hide">
+
+  <div ng-include="'partials/nav.html'"></div>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12" ng-if="$route.current.$$route.authRequired" class="connected-users-col" ng-controller="UsersCtrl" ng-show-auth="login">
+        <ul class="list-group">
+          <li class="list-group-item" ng-click="openUsers = !openUsers">
+            <span class="badge">{{ (users | orderByPriority | connectedUsers ).length }}</span>
+            <strong> USERS ONLINE :  </strong>
+          </li>
+          <li class="list-group-item"
+              ng-show="openUsers"
+              ng-class="{'list-group-item-success' : $location.url() == thisUser.url}"
+              ng-repeat="thisUser in users | orderByPriority | connectedUsers">
+            <div gravatar="thisUser.email" class="gravatar-small gravatar-small-left"></div>
+            <strong>{{ thisUser.email == auth.user.email ? 'You ❤' : thisUser.username }}</strong><small style="font-size: 75%; color: #919191;"> {{ thisUser.email }} </small> <br>
+            <small style="font-size: 75%;"> @  <a href="#{{thisUser.url}}">{{ thisUser.url }}</a> </small>
+          </li>
+        </ul>
+      </div>
+
+      <div ng-class="{'col-xs-12' : $route.current.$$route.authRequired != true , 'col-xs-12' : $route.current.$$route.authRequired } "ng-view id="top-ng-view"></div>
+
+    </div>
+  </div>
+
+  <!-- Vendors -->
+  <script src="js/bc74299c.vendors.min.js"></script>
+
+  <!-- AngularJs vendors -->
+  <script src="js/bf8d2442.ng-vendors.min.js"></script>
+
+  <!-- App Source -->
+  <script src="js/19012952.scripts.min.js"></script>
+
+</body>
+</html>
