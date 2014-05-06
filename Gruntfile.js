@@ -130,7 +130,8 @@ module.exports = function(grunt) {
             'templates/{,*/}*.html',
             'img/{,*/}*.{webp}',
             'fonts/**/*',
-            'components/**/*.{css,png,jpg,jpeg,gif,webp,svg,ttf,svg,eot,woff}'
+            'components/**/*.{css,png,jpg,jpeg,gif,webp,svg,ttf,svg,eot,woff}',
+            'README.md'
           ]
         }]
       }

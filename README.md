@@ -1,11 +1,31 @@
-# angular-markdown-editor
+# angularfire-markdown-editor
 
-Firebase collaboration markdown editor.
+Simple AngularJS/Firebase collaboration app to editing markdown sheets.
 
 [DEMO](http://hal9087.github.io/angularfire-markdown-editor/)
 
 
-## OLD README.md
+## Install 
+Clone the repository and  ```cd ``` into it.
+```
+git clone https://github.com/hal9087/angularfire-markdown-editor.git
+cd angularfire-markdown-editor
+``` 
+
+Install dependencies.
+```
+bower install
+npm install
+``` 
+
+Change the firebase endpoint. (```FBURL```)
+```
+vi app/js/config.js
+``` 
+
+
+
+## AngularFire seed
 # angular-seed — the seed for AngularFire apps
 
 This project is an application skeleton for a typical [AngularFire](http://angularfire.com/) web app.
